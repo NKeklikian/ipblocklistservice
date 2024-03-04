@@ -3,7 +3,7 @@ from flask_swagger_ui import get_swaggerui_blueprint
 from flask import Flask
 from app.home import home
 from app.home.config import DISABLE_JOB_MANAGER, REDIS_DISABLED
-from app.home.job_manager import start_job_manager
+from app.home.job_manager import start_job_manager, download_and_save_blocklist
 from app.home import ip_blocklist_service
 
 app = Flask(__name__)
@@ -29,11 +29,12 @@ app.register_blueprint(home, url_prefix='')
 
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
+if not REDIS_DISABLED:
+    download_and_save_blocklist()
 if not DISABLE_JOB_MANAGER:
     print("Starting Job Manager")
     if REDIS_DISABLED:
         raise Exception('Redis must be enabled in order to start the Job Manager')
     start_job_manager()
-
-
+    print("Job manager successfully started")
 

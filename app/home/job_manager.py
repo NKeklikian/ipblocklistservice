@@ -1,19 +1,20 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 
-from app.redis_service import RedisService
-import time
+from app.redis_service import redis_instance
 import logging
 from github import Github, Auth
 import datetime
 from app.home.constants import *
-from injector import Injector
 from app.home.ip_blocklist_service import IpBlocklistService
 
-# Refactor injector
-# injector = Injector()
-# service = injector.get(IpBlocklistService)
 
-redis = RedisService()
+def save_ip_blocklist(blocklist):
+    redis_instance.sadd(BLOCKLIST_NAME, *blocklist)
+
+
+def download_and_save_blocklist():
+    blocklist = IpBlocklistService.get_ip_blocklist()
+    save_ip_blocklist(blocklist)
 
 
 def check_commit_sha_updated():
@@ -22,12 +23,12 @@ def check_commit_sha_updated():
     g = Github(auth=auth)
     repo = g.get_repo("stamparm/ipsum")
     current_commit_sha = repo.get_commits(since=datetime.datetime.now() - datetime.timedelta(days=1))[0].sha
-    last_commit_sha = redis.r.get('last_commit_sha')
+    last_commit_sha = redis_instance.get('last_commit_sha')
     if current_commit_sha != last_commit_sha:
-        redis.r.set('last_commit_sha', current_commit_sha.strftime())
-        IpBlocklistService.download_and_save_blocklist()
+        redis_instance.set('last_commit_sha', current_commit_sha.strftime())
+        download_and_save_blocklist()
         last_commit_date = repo.get_commit(current_commit_sha).commit.committer.date
-        redis.r.set('last_commit_date', last_commit_date.strftime())
+        redis_instance.set('last_commit_date', last_commit_date.strftime())
 
 
 def start_job_manager():

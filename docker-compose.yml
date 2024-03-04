@@ -1,0 +1,20 @@
+version: "3"
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+  flask-app:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    links:
+      - redis
+    depends_on:
+      - redis
+    restart: "on-failure"
+    environment:
+      REDIS_HOST: redis
+      DISABLE_JOB_MANAGER: false

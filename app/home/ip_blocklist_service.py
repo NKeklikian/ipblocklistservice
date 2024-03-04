@@ -1,7 +1,4 @@
-import requests
-
-from app.redis_service import RedisService
-from app.home.constants import BLOCKLIST_NAME
+from app.redis_service import redis_instance
 import requests
 from app.home.config import RETRY_CONNECTIONS, RETRY_READS, RETRY_REDIRECTS, URL, REDIS_DISABLED
 from app.home.constants import ENCODING, BLOCKLIST_NAME
@@ -24,23 +21,16 @@ def singleton(cls):
 @singleton
 class IpBlocklistService:
 
-    def __init__(self):
-        self.redis = None
-        if not REDIS_DISABLED:
-            self.redis = RedisService()
-            self.download_and_save_blocklist()
-        
     def is_blocklisted(self, ip):
         if REDIS_DISABLED:
             print("Redis is disabled")
-            my_blocklist = self.download_ip_blocklist()
+            my_blocklist = self.get_ip_blocklist()
             return ip in my_blocklist
-        return bool(self.redis.r.sismember(BLOCKLIST_NAME, ip))
+        return bool(redis_instance.sismember(BLOCKLIST_NAME, ip))
 
-    def save_in_blocklist(self, ip):
-        return self.redis.r.sadd(BLOCKLIST_NAME, ip)
 
-    def download_ip_blocklist(self):
+    @staticmethod
+    def get_ip_blocklist():
         try:
             print("Downloading Blocklist")
             response = s.get(URL)
@@ -53,9 +43,4 @@ class IpBlocklistService:
 #                return list(self.redis.r.smembers(BLOCKLIST_NAME))
             return []
 
-    def save_ip_blocklist(self, blocklist):
-        self.redis.r.sadd(BLOCKLIST_NAME, *blocklist)
 
-    def download_and_save_blocklist(self):
-        blocklist = self.download_ip_blocklist()
-        self.save_ip_blocklist(blocklist)
