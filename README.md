@@ -98,8 +98,6 @@ which makes them easier to test
 and provides inversion of control
 
 ## TODO
-### JobManager is a monster, refactor
-### (move download, save and d&s somewhere else)
 ### There are 2 dockerfiles, maybe refactor into only 1
 ### One dockerfile in /jobs and the other in the root dir
 ### So that we can rename the JobManagerDockerfile to just 'Dockerfile'
