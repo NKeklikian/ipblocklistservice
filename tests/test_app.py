@@ -1,10 +1,9 @@
 import pytest
-import time
 from app import app as my_app
-from app.home.ip_blocklist_service import IpBlocklistService
-import redis
-from app.home.config import REDIS_HOST, REDIS_PORT
 from app.home.constants import BLOCKLIST_NAME
+
+from tests.redis_instance_test import redis_test_instance
+
 
 @pytest.fixture
 def app():
@@ -22,9 +21,6 @@ def runner(app):
     return app.test_cli_runner()
 
 
-redis_test_instance = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
-
-
 def test_safe_ip(client):
     response = client.get("/api/ips/0.0.0.0")
     assert response.data == b'{"is_in_blocklist":false}\n'
@@ -32,7 +28,6 @@ def test_safe_ip(client):
 
 
 def test_blocklisted_ip(client):
-    service = IpBlocklistService
     redis_test_instance.sadd(BLOCKLIST_NAME, '103.251.167.20')
     response = client.get("/api/ips/103.251.167.20")
     assert response.data == b'{"is_in_blocklist":true}\n'

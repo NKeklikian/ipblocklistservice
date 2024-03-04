@@ -1,11 +1,7 @@
 from app.home import home
 from app.home.ip_blocklist_service import IpBlocklistService
 import socket
-from injector import Injector
 
-# Refactor injector
-# injector = Injector()
-# service = injector.get(IpBlocklistService)
 
 
 # Exception handling should be handled in

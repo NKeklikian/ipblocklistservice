@@ -33,7 +33,8 @@ def check_commit_sha_updated():
 
 def start_job_manager():
     scheduler = BackgroundScheduler(daemon=True)
-    scheduler.add_job(check_commit_sha_updated, 'interval', hours=1, next_run_time=datetime.datetime.now()+datetime.timedelta(hours=1))
+    scheduler.add_job(check_commit_sha_updated, 'interval', hours=1,
+                      next_run_time=datetime.datetime.now() + datetime.timedelta(hours=1))
     print(scheduler.get_jobs())
     scheduler.start()
     print("Scheduler successfully started")
