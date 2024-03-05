@@ -1,11 +1,13 @@
+from datetime import datetime
+
 from apscheduler.schedulers.background import BackgroundScheduler
 
 from app.redis_service import redis_instance
-import logging
 from github import Github, Auth
 import datetime
 from app.home.constants import *
 from app.home.ip_blocklist_service import IpBlocklistService
+from app.home.config import GITHUB_TOKEN, IP_BLOCKLIST_URL, UPDATE_INTERVAL_IN_HOURS
 
 
 def save_ip_blocklist(blocklist):
@@ -17,27 +19,28 @@ def download_and_save_blocklist():
     save_ip_blocklist(blocklist)
 
 
-def get_current_commit_sha():
-    logging.info("Checking SHA")
-    auth = Auth.Token("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")
+def get_repo():
+    auth = Auth.Token(GITHUB_TOKEN)
     g = Github(auth=auth)
-    repo = g.get_repo("stamparm/ipsum")
+    return g.get_repo(IP_BLOCKLIST_URL)
+
+
+def get_current_commit_sha():
+    repo = get_repo()
     return repo.get_commits(since=datetime.datetime.now() - datetime.timedelta(days=1))[0].sha
 
 
 def update_last_commit(last_commit_sha):
-    auth = Auth.Token("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")
-    g = Github(auth=auth)
-    repo = g.get_repo("stamparm/ipsum")
-    last_commit_date = repo.get_commit(last_commit_sha).commit.committer.date
-    redis_instance.set('last_commit_date', last_commit_date.strftime())
-    redis_instance.set('last_commit_sha', last_commit_sha.strftime())
+    repo = get_repo()
+    last_commit_date: datetime = repo.get_commit(last_commit_sha).commit.committer.date
+    redis_instance.set(LAST_COMMIT_DATE_KEY, last_commit_date.strftime())
+    redis_instance.set(LAST_COMMIT_SHA_KEY, last_commit_sha.strftime())
 
 
 # Refactor into multiple functions
 def update_blocklist_if_needed():
     current_commit_sha = get_current_commit_sha()
-    last_commit_sha = redis_instance.get('last_commit_sha')
+    last_commit_sha = redis_instance.get(LAST_COMMIT_SHA_KEY)
     if current_commit_sha != last_commit_sha:
         download_and_save_blocklist()
         update_last_commit()
@@ -45,8 +48,8 @@ def update_blocklist_if_needed():
 
 def start_job_manager():
     scheduler = BackgroundScheduler(daemon=True)
-    scheduler.add_job(update_blocklist_if_needed, 'interval', hours=1,
-                      next_run_time=datetime.datetime.now() + datetime.timedelta(hours=1))
+    scheduler.add_job(update_blocklist_if_needed, 'interval', hours=UPDATE_INTERVAL_IN_HOURS,
+                      next_run_time=datetime.datetime.now() + datetime.timedelta(hours=UPDATE_INTERVAL_IN_HOURS))
     print(scheduler.get_jobs())
     scheduler.start()
     print("Scheduler successfully started")

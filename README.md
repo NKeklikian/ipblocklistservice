@@ -66,38 +66,42 @@ Add additional notes to deploy this on a live system
   - [Pytest](https://pytest.org/) - Testing framework
   
 
+## Non functional requirements
+
+### High availability
+
+To avoid downtime while updating the blocklist,
+the blocklist is updated through a parallel worker
+that updates the Redis service.
+
+### Operation under heavy load
+
+A load balancer can be added alongside cloud infrastructure
+that allows the service to run in several copies that consume
+the same Redis service to ensure consistency. 
+This was not implemented due to time constraints.
+
+### Low latency
+
+In order to reduce the time taken by the service to check if
+an ip is in the blocklist, a Redis service was implemented which
+replaces the internal memory with a faster one.
+
 ## Technical decisions
+
 Inside the repository several ip lists can be found.
 One contains the list of all blocklisted ips alongside
 their number of blocklisted appearances named 'ipsum.txt',
 and 8 other files inside the 'levels' directory named 'n.txt', 
 where n is a number in the range 1-8, each containing 
-the list of blocklisted ips with n or more occurences. 
+the list of blocklisted ips with n or more occurrences. 
 In particular the file '1.txt' contains all blocklisted ips 
-with 1 or more occurences, which is what we need. 
-This file does not contain the number of occurences for each ip, 
+with 1 or more occurrences, which is what we need. 
+This file does not contain the number of occurrences for each ip, 
 which makes it lighter than the main file containing all blocklisted ips.
-
-### Why Redis
-In a high availability environment we need 
-consistency in the data between separate instances.
-Redis replaces the internal memory cache to avoid
-these inconsistencies.
-Redis also provides a low latency option for
-storing data.
 
 
 ### flask (vs FastAPI)
 FastAPI is asynchronous which makes it more complex to
 deploy and implement.
 Flask is the most widely used web service microframework
-
-### Python injector (Not currently used)
-Simplifies importing services and methods across files
-which makes them easier to test
-and provides inversion of control
-
-## TODO
-### There are 2 dockerfiles, maybe refactor into only 1
-### One dockerfile in /jobs and the other in the root dir
-### So that we can rename the JobManagerDockerfile to just 'Dockerfile'
