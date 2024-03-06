@@ -42,18 +42,22 @@ Requirements for the software and other tools to build, test and push
 
 Reminder: An active Redis is needed for this to work
 
-### Sample Tests
+### Sample Test
 
-Explain what these tests test and why
+The following test's goal is to check that if an IP was added
+to the redis service, then it should return `true`
 
-    Give an example
+    def test_blocklisted_ip(client):
+        redis_test_instance.sadd(BLOCKLIST_NAME, '103.251.167.20')
+        response = client.get("/api/ips/103.251.167.20")
+        assert response.data == b'{"is_in_blocklist":true}\n'
+        assert response.status_code == 200
 
 
 ## Deployment
 
     make run
 
-Add additional notes to deploy this on a live system
 
 ## Dependencies
 
