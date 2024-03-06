@@ -2,8 +2,8 @@
 
 ## Description
 
-Microservice that manages a list of IPs aimed at preventing abuse by
-banning IPs that are known to be used for malicious purposes.
+This microservice manages a list of IPs that are known to be used for malicious purposes and allows
+the user to check if a specific IP is in the list.
 
 ## Getting Started
 
@@ -36,10 +36,6 @@ banning IPs that are known to be used for malicious purposes.
     {"is_in_blocklist":true}
 
 
-## Documentation
-
-For more information on technical decisions taken, tradeoffs and functional and non-functional requirements read through the [documentation](info.md)
-
 ## Running the tests
 
     pyenv exec poetry run pytest tests/
@@ -57,9 +53,13 @@ to the redis service, then it should return `true`
         assert response.data == b'{"is_in_blocklist":true}\n'
         assert response.status_code == 200
 
-### Interactive documentation
+## Interactive documentation
 
     curl localhost:8000/api/docs/
+
+## Technical Documentation
+
+For more information on technical decisions taken, tradeoffs and functional and non-functional requirements read through the [documentation](info.md)
 
 ## Dependencies
 
