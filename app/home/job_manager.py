@@ -33,17 +33,16 @@ def get_current_commit_sha():
 def update_last_commit(last_commit_sha):
     repo = get_repo()
     last_commit_date: datetime = repo.get_commit(last_commit_sha).commit.committer.date
-    redis_instance.set(LAST_COMMIT_DATE_KEY, last_commit_date.strftime())
-    redis_instance.set(LAST_COMMIT_SHA_KEY, last_commit_sha.strftime())
+    redis_instance.set(LAST_COMMIT_DATE_KEY, last_commit_date.strftime(format='str'))
+    redis_instance.set(LAST_COMMIT_SHA_KEY, last_commit_sha)
 
 
-# Refactor into multiple functions
 def update_blocklist_if_needed():
     current_commit_sha = get_current_commit_sha()
     last_commit_sha = redis_instance.get(LAST_COMMIT_SHA_KEY)
     if current_commit_sha != last_commit_sha:
         download_and_save_blocklist()
-        update_last_commit()
+        update_last_commit(current_commit_sha)
 
 
 def start_job_manager():

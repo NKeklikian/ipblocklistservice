@@ -10,9 +10,6 @@ s.mount(URL, HTTPAdapter(max_retries=Retry(connect=RETRY_CONNECTIONS, read=RETRY
 # With more time I could do a backoff factor to try in a few minutes
 # (change dynamically the job schedule)
 
-# Test with a first successful attempt and a fail right after
-# Test job manager service functions and move them to another file
-
 
 def singleton(cls):
     return cls()

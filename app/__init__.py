@@ -1,7 +1,7 @@
 from flask_swagger_ui import get_swaggerui_blueprint
 
 from flask import Flask
-from app.home import home
+from app.home import home_blueprint
 from app.home.config import DISABLE_JOB_MANAGER, REDIS_DISABLED
 from app.home.job_manager import start_job_manager, download_and_save_blocklist
 from app.home import ip_blocklist_service
@@ -20,12 +20,12 @@ swaggerui_blueprint = get_swaggerui_blueprint(
 )
 
 
-@home.route("/spec")
+@home_blueprint.route("/spec")
 def spec():
     return open('app/swagger.yaml','r')
 
 
-app.register_blueprint(home, url_prefix='')
+app.register_blueprint(home_blueprint, url_prefix='')
 
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 

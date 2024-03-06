@@ -13,4 +13,4 @@ def test_is_blocklisted():
 def test_is_not_blocklisted():
     service = IpBlocklistService
     redis_test_instance.srem(BLOCKLIST_NAME, '1.1.1.1')
-    assert service.is_blocklisted('1.1.1.1') is False
+    assert not service.is_blocklisted('1.1.1.1')

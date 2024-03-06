@@ -36,7 +36,7 @@ def test_blocklisted_ip(client):
 
 def test_invalid_ip(client):
     response = client.get("/api/ips/my_sample")
-    assert response.data == b'{"message":"Invalid IP","trace":null}\n'
+    assert response.data == b'{"message":"Invalid IP address","trace":null}\n'
     assert response.status_code == 422
 
 
@@ -49,9 +49,6 @@ def test_wrong_method(client):
     response = client.post("/api/ips/0.0.0.0")
     assert response.status_code == 405
 
-# Tests: request OK, request false, parametro vacio, parametro roto (ip mal formateada)
-# , hacer post/put/etc
+# Tests:
 # mockear la api de git y hacer que rompe
 # testear errores en las funciones internas
-# ponerle puerto 000 a flask para que rompa
-# armar un endpoint para on demand testear las funciones internas
