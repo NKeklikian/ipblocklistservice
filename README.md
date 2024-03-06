@@ -5,8 +5,6 @@
 Microservice that manages a list of IPs aimed at preventing abuse by
 banning IPs that are known to be used for malicious purposes.
 
-[Documentation](info.md)
-
 ## Getting Started
 
 ### Prerequisites
@@ -37,6 +35,10 @@ banning IPs that are known to be used for malicious purposes.
     curl localhost:8000/api/ips/0.0.0.0    
     {"is_in_blocklist":true}
 
+
+## Documentation
+
+For more information on technical decisions taken, tradeoffs and functional and non-functional requirements read through the [documentation](info.md)
 
 ## Running the tests
 
