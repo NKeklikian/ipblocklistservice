@@ -7,8 +7,8 @@ from requests.adapters import HTTPAdapter, Retry
 s = requests.Session()
 s.mount(URL, HTTPAdapter(max_retries=Retry(connect=RETRY_CONNECTIONS, read=RETRY_READS,
                                            redirect=RETRY_REDIRECTS)))
-# With more time I could do a backoff factor to try in a few minutes
-# (change dynamically the job schedule)
+# In case the URL is down for some minutes, a backoff factor can be implemented
+# to change dynamically the job schedule
 
 
 def singleton(cls):
@@ -32,12 +32,9 @@ class IpBlocklistService:
             print("Downloading Blocklist")
             response = s.get(URL)
             blocklist = response.content.decode(ENCODING).strip('\n').split('\n')
-            # logging.info('Downloaded blocklist')
             return blocklist
         except Exception as e:
             print('Error downloading blocklist', e)
-#            if self.redis.r.scard(BLOCKLIST_NAME) > 0:
-#                return list(self.redis.r.smembers(BLOCKLIST_NAME))
             return []
 
 
