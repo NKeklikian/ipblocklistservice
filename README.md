@@ -1,5 +1,7 @@
 # IP Blocklist Service
 
+## Description
+
 Microservice that manages a list of IPs aimed at preventing abuse by
 banning IPs that are known to be used for malicious purposes.
 
@@ -15,26 +17,35 @@ for notes on deploying the project on a live system.
 
 ### Prerequisites
 
-- This project uses Redis service. Without it, the project won't work.
+- Redis
 - python 3.10.4
-- pyenv/conda or similar
+- pyenv
 
 ### Installing
 
-- redis
+- [redis installation instructions](https://redis.io/docs/install/install-redis/)
 
 #### Production build
 
     make install
 
+## Deployment
+
+    make run
+
 ### Usage
 
     curl localhost:8000/api/ips/<ipv4>
 
+#### Example
+
+    curl localhost:8000/api/ips/0.0.0.0    
+    {"is_in_blocklist":true}
+
 
 ## Running the tests
 
-	pyenv exec poetry run pytest tests/
+    pyenv exec poetry run pytest tests/
 
 Reminder: An active Redis is needed for this to work
 
@@ -49,11 +60,9 @@ to the redis service, then it should return `true`
         assert response.data == b'{"is_in_blocklist":true}\n'
         assert response.status_code == 200
 
+### Interactive documentation
 
-## Deployment
-
-    make run
-
+    curl localhost:8000/api/docs/
 
 ## Dependencies
 
