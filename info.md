@@ -1,3 +1,10 @@
+# Documentation
+
+Assignment statement:
+[gist](https://gist.github.com/champo/d369a4fc61a3acdaa39e335d973cfb10)
+
+This project took approximately 16 hours to complete.
+
 ## Functional requirements
 
 The service has a single endpoint (`/api/ips/`) that takes 
