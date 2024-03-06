@@ -8,6 +8,8 @@ banning IPs that are known to be used for malicious purposes.
 Assignment statement:
 [gist](https://gist.github.com/champo/d369a4fc61a3acdaa39e335d973cfb10)
 
+This project took approximately 16 hours to complete.
+
 ## Getting Started
 
 ### Prerequisites
@@ -118,6 +120,17 @@ This was not implemented due to time constraints.
 In order to reduce the time taken by the service to check if
 an ip is in the blocklist, a Redis service was implemented which
 replaces the internal memory with a faster one.
+
+### Efficient usage of resources
+
+To avoid downloading entire lists and comparing them 
+to the previously stored ones, the commit hashes are compared instead.
+
+#### Tradeoff
+
+Checking commit hashes requires a Git Authentication token.
+If the target user does not have a Git token the slower approach 
+which avoids checking commit hashes should be followed instead.
 
 ## Technical decisions
 
