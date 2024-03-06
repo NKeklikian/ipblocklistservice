@@ -16,10 +16,6 @@ the user to check if a specific IP is in the list.
 
 ### Installing
 
-- [Redis installation instructions](https://redis.io/docs/install/install-redis/)
-
-#### Production build
-
     make install
 
 ## Deployment
