@@ -8,8 +8,8 @@ This project took approximately 16 hours to complete.
 ## Functional requirements
 
 The service has a single endpoint (`/api/ips/`) that takes 
-an IP v4 encoded as a string (e.g. "127.0.0.1"), and return 
-"true" if the IP is part of the blacklist, and "false" otherwise.
+an IP v4 encoded as a string (e.g. "127.0.0.1"), and returns 
+`true` if the IP is part of the blacklist, and `false` otherwise.
 
 This is an example of how calling the microservice looks like
 
