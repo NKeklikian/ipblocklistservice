@@ -19,10 +19,6 @@ for notes on deploying the project on a live system.
 - python 3.10.4
 - pyenv/conda or similar
 
-Requirements for the software and other tools to build, test and push 
-- [Example 1](https://www.example.com)
-- [Example 2](https://www.example.com)
-
 ### Installing
 
 - redis
