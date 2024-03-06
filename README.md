@@ -55,6 +55,8 @@ to the redis service, then it should return `true`
 
 ## Interactive documentation
 
+Check Swagger's interactive documentation by running
+
     curl localhost:8000/api/docs/
 
 ## Technical Documentation
