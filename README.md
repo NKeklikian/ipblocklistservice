@@ -5,12 +5,7 @@
 Microservice that manages a list of IPs aimed at preventing abuse by
 banning IPs that are known to be used for malicious purposes.
 
-Assignment statement:
-[gist](https://gist.github.com/champo/d369a4fc61a3acdaa39e335d973cfb10)
-
 [Documentation](info.md)
-
-This project took approximately 16 hours to complete.
 
 ## Getting Started
 
@@ -73,4 +68,3 @@ to the redis service, then it should return `true`
   - [Pytest](https://pytest.org/) - Testing framework
   - [Docker](https://www.docker.com/) - Container platform
   - [Swagger](https://swagger.io/) - Interactive documentation
-    
