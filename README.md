@@ -57,7 +57,7 @@ Check Swagger's interactive documentation by running
 
 ## Technical Documentation
 
-For more information on technical decisions taken, tradeoffs and functional and non-functional requirements read through the [documentation](info.md)
+For more information on technical decisions taken, tradeoffs and functional and non-functional requirements read through the [documentation](DOCS.md)
 
 ## Dependencies
 
