@@ -64,7 +64,35 @@ Add additional notes to deploy this on a live system
   - [Swagger](https://swagger.io/) - Interactive documentation
   - [Gunicorn](https://gunicorn.org/) - HTTP web server
   - [Pytest](https://pytest.org/) - Testing framework
-  
+
+## Functional requirements
+
+The service has a single endpoint (`/api/ips/`) that takes 
+an IP v4 encoded as a string (e.g. "127.0.0.1"), and return 
+"true" if the IP is part of the blacklist, and "false" otherwise.
+
+This is an example of how calling the microservice looks like
+
+`curl http://blocklist/api/ips/127.0.0.1
+{"is_in_blocklist":false}`
+
+### Data source
+
+The microservice does a periodical sync with [this public list](https://github.com/stamparm/ipsum).
+It is currently configured to run every one hour.
+
+#### Future improvements on list sync
+
+Depending on how much the public list is trusted to update exactly
+every 24 hours, many improvements can be made:
+- After a successful update wait until 24 hours have passed 
+since the time of the last commit
+- In case the last commit was delayed, check the public list 
+at the most frequent update hour of the day instead of waiting 24 hours
+- If the public list is down when trying to update, 
+an escalating backoff factor can be implemented, 
+so that it progressively increases the delay between retries 
+until the request is successful
 
 ## Non functional requirements
 
