@@ -8,6 +8,6 @@ RETRY_READS = os.getenv("RETRY_READS", 2)
 RETRY_REDIRECTS = os.getenv("RETRY_REDIRECTS", 5)
 UPDATE_INTERVAL_IN_HOURS = os.getenv("UPDATE_INTERVAL_IN_HOURS", 1)
 REDIS_DISABLED = os.getenv("REDIS_DISABLED", 'False').lower() in ('true', '1', 't')
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "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")
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "example_token")
 IP_BLOCKLIST_URL = os.getenv("IP_BLOCKLIST_URL", "stamparm/ipsum")
 DISABLE_JOB_MANAGER = os.getenv("DISABLE_JOB_MANAGER", 'True').lower() == 'true'
