@@ -9,7 +9,6 @@ the user to check if a specific IP is in the list.
 
 ### Prerequisites
 
-- Redis
 - Python 3.10.4
 - Pyenv
 - A [GitHub personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
