@@ -10,8 +10,7 @@ the user to check if a specific IP is in the list.
 ### Prerequisites
 
 - [Pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
--
-A [GitHub personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens),
+- A [GitHub personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens),
 which should be configured in [the configuration file](/app/home/config.py)
 - Python 3.10.4, which can be installed by running `pyenv install 3.10.4`
 
