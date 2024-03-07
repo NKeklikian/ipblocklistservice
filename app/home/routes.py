@@ -1,6 +1,10 @@
 from app.home import home_blueprint
 from app.home.ip_blocklist_service import IpBlocklistService
 import socket
+import logging
+import sys
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 
 # Exception handling should be handled in
@@ -8,7 +12,7 @@ import socket
 @home_blueprint.route('/api/ips/<string:ipv4>', methods=["GET"])
 def is_in_blocklist(ipv4):
     error_dict = {'message': None, 'trace': None}
-    print(ipv4)
+    logging.info('Received IP', ipv4)
     try:
         socket.inet_aton(ipv4)
     except OSError:
@@ -19,4 +23,4 @@ def is_in_blocklist(ipv4):
     except Exception as e:
         error_dict['message'] = 'Redis failed'
         error_dict['trace'] = str(e)
-        return error_dict, 424  # Failed dependency (Redis failed)
+        return error_dict, 424  # Failed dependency

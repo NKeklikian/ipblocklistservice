@@ -8,6 +8,10 @@ import datetime
 from app.home.constants import *
 from app.home.ip_blocklist_service import IpBlocklistService
 from app.home.config import GITHUB_TOKEN, IP_BLOCKLIST_URL, UPDATE_INTERVAL_IN_HOURS
+import logging
+import sys
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 
 def save_ip_blocklist(blocklist):
@@ -50,6 +54,5 @@ def start_job_manager():
     scheduler = BackgroundScheduler(daemon=True)
     scheduler.add_job(update_blocklist_if_needed, 'interval', hours=UPDATE_INTERVAL_IN_HOURS,
                       next_run_time=datetime.datetime.now() + datetime.timedelta(hours=UPDATE_INTERVAL_IN_HOURS))
-    print(scheduler.get_jobs())
     scheduler.start()
-    print("Scheduler successfully started")
+    logging.info("Scheduler successfully started")

@@ -3,6 +3,10 @@ import requests
 from app.home.config import RETRY_CONNECTIONS, RETRY_READS, RETRY_REDIRECTS, URL, REDIS_DISABLED
 from app.home.constants import ENCODING, BLOCKLIST_NAME
 from requests.adapters import HTTPAdapter, Retry
+import logging
+import sys
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 s = requests.Session()
 s.mount(URL, HTTPAdapter(max_retries=Retry(connect=RETRY_CONNECTIONS, read=RETRY_READS,
@@ -20,7 +24,7 @@ class IpBlocklistService:
 
     def is_blocklisted(self, ip):
         if REDIS_DISABLED:
-            print("Redis is disabled")
+            logging.info("Redis is disabled")
             my_blocklist = self.get_ip_blocklist()
             return ip in my_blocklist
         return bool(redis_instance.sismember(BLOCKLIST_NAME, ip))
@@ -29,12 +33,12 @@ class IpBlocklistService:
     @staticmethod
     def get_ip_blocklist():
         try:
-            print("Downloading Blocklist")
+            logging.info("Downloading Blocklist")
             response = s.get(URL)
             blocklist = response.content.decode(ENCODING).strip('\n').split('\n')
             return blocklist
         except Exception as e:
-            print('Error downloading blocklist', e)
+            logging.info('Error downloading blocklist', e)
             return []
 
 
