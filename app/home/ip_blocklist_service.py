@@ -11,6 +11,8 @@ logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 s = requests.Session()
 s.mount(URL, HTTPAdapter(max_retries=Retry(connect=RETRY_CONNECTIONS, read=RETRY_READS,
                                            redirect=RETRY_REDIRECTS)))
+
+
 # In case the URL is down for some minutes, a backoff factor can be implemented
 # to change dynamically the job schedule
 
@@ -29,7 +31,6 @@ class IpBlocklistService:
             return ip in my_blocklist
         return bool(redis_instance.sismember(BLOCKLIST_NAME, ip))
 
-
     @staticmethod
     def get_ip_blocklist():
         try:
@@ -40,5 +41,3 @@ class IpBlocklistService:
         except Exception as e:
             logging.info('Error downloading blocklist', e)
             return []
-
-

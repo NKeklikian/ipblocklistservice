@@ -33,6 +33,6 @@ def test_update_last_commit():
 
 
 def test_update_blocklist_if_needed():
-    redis_instance.set(LAST_COMMIT_SHA_KEY,'')
+    redis_instance.set(LAST_COMMIT_SHA_KEY, '')
     update_blocklist_if_needed()
     assert redis_test_instance.get(LAST_COMMIT_SHA_KEY) == get_current_commit_sha()

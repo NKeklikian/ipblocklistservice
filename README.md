@@ -10,8 +10,9 @@ the user to check if a specific IP is in the list.
 ### Prerequisites
 
 - [Pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
-- A [GitHub personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens),
-  which should be configured in [the configuration file](/app/home/config.py)
+-
+A [GitHub personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens),
+which should be configured in [the configuration file](/app/home/config.py)
 - Python 3.10.4, which can be installed by running `pyenv install 3.10.4`
 
 ### Local installation
@@ -35,10 +36,9 @@ the user to check if a specific IP is in the list.
     curl localhost:8000/api/ips/0.0.0.0    
     {"is_in_blocklist":true}
 
-
 ## Running the tests
 
-Tests can be run inside a docker container by running 
+Tests can be run inside a docker container by running
 
     make test
 
@@ -69,15 +69,16 @@ Check Swagger's interactive documentation by running
 
 ## Technical Documentation
 
-For more information on technical decisions taken, tradeoffs and functional and non-functional requirements read through the [documentation](DOCS.md)
+For more information on technical decisions taken, tradeoffs and functional and non-functional requirements read through
+the [documentation](DOCS.md)
 
 ## Dependencies
 
-  - [Redis](https://redis.io/) - Memory management
-  - [Poetry](https://python-poetry.org/) - Dependency management
-  - [Gunicorn](https://gunicorn.org/) - HTTP web server
-  - [Flask](https://flask.palletsprojects.com/) - Web application framework
-  - [APScheduler](https://apscheduler.readthedocs.io/) - Library for scheduling python code
-  - [Pytest](https://pytest.org/) - Testing framework
-  - [Docker](https://www.docker.com/) - Container platform
-  - [Swagger](https://swagger.io/) - Interactive documentation
+- [Redis](https://redis.io/) - Memory management
+- [Poetry](https://python-poetry.org/) - Dependency management
+- [Gunicorn](https://gunicorn.org/) - HTTP web server
+- [Flask](https://flask.palletsprojects.com/) - Web application framework
+- [APScheduler](https://apscheduler.readthedocs.io/) - Library for scheduling python code
+- [Pytest](https://pytest.org/) - Testing framework
+- [Docker](https://www.docker.com/) - Container platform
+- [Swagger](https://swagger.io/) - Interactive documentation

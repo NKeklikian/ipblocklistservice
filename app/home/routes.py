@@ -12,7 +12,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 @home_blueprint.route('/api/ips/<string:ipv4>', methods=["GET"])
 def is_in_blocklist(ipv4):
     error_dict = {'message': None, 'trace': None}
-    logging.info('Received IP', ipv4)
+    logging.info('Received IP: ' + ipv4)
     try:
         socket.inet_aton(ipv4)
     except OSError:

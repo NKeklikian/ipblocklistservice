@@ -26,7 +26,7 @@ swaggerui_blueprint = get_swaggerui_blueprint(
 
 @home_blueprint.route("/spec")
 def spec():
-    return open('app/swagger.yaml','r')
+    return open('app/swagger.yaml', 'r')
 
 
 app.register_blueprint(home_blueprint, url_prefix='')
@@ -41,4 +41,3 @@ if not DISABLE_JOB_MANAGER:
         raise Exception('Redis must be enabled in order to start the Job Manager')
     start_job_manager()
     logging.info("Job manager successfully started")
-
