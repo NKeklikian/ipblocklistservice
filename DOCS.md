@@ -79,20 +79,20 @@ which makes it lighter than the main file containing all blocklisted ips.
 ### Blocklist update frequency
 
 The Job Manager checks for list updates every one hour. This means that in the worst case scenario 
-that the list is updated one minute after the Job Manager checked, the service would be desynced for 59 minutes.
-If the blocklist is believed to update exactly at the same time each day without fail and never at another time,
+that the list is updated one minute after the Job Manager checked, the service would be out of sync for 59 minutes.
+If the blocklist is believed to updated exactly at the same time each day without fail and never at another time,
 the job can be scheduled to run every 24 hours one second after the time the list updates. In this case, if the
-source list update was delayed for a minute, then the service would be desynced for almost 24 hours.
+source list update was delayed for a minute, then the service would be out of sync for almost 24 hours.
 A possible solution to this scenario is to check if there was a commit at the expected time, and if there wasn't,
 check for updates in a few minutes, or implement an escalating backoff factor.
 However, these solutions don't contemplate a possible update at an irregular time, which is why the hourly check
-was chosen. Reducing the wait times between checks will eventually lead to Git blocking the requests. 
-A further improvement is tu find the minimum time allowed by Git between checks.
+was chosen. Reducing the wait times between checks will eventually lead to GitHub blocking the requests. 
+A further improvement is to find the minimum time allowed by GitHub between checks.
 
-#### Git Authentication token requirement
+#### GitHub Authentication token requirement
 
-Checking commit hashes requires a Git Authentication token.
-If the target user does not have a Git token the slower approach 
+Checking commit hashes requires a GitHub Authentication token.
+If the target user does not have a GitHub token the slower approach 
 which avoids checking commit hashes should be followed instead.
 
 ### flask (vs FastAPI)
