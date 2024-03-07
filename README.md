@@ -42,7 +42,9 @@ To test locally, run
 
     pyenv exec poetry run pytest tests/
 
-Reminder: An active Redis service is needed for this to work
+Reminder: An active Redis service is needed for this to work, which can be done by running
+
+    docker compose up -d redis
 
 ### Sample Test
 
