@@ -23,6 +23,7 @@ It is currently configured to run every one hour.
 
 #### Future improvements on list sync
 
+Currently the list is being updated every hour.
 Depending on how much the public list is trusted to update exactly
 every 24 hours, many improvements can be made:
 
