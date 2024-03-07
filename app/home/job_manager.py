@@ -11,6 +11,7 @@ from app.home.config import GITHUB_TOKEN, IP_BLOCKLIST_URL, UPDATE_INTERVAL_IN_H
 
 
 def save_ip_blocklist(blocklist):
+    redis_instance.delete(BLOCKLIST_NAME)
     redis_instance.sadd(BLOCKLIST_NAME, *blocklist)
 
 
