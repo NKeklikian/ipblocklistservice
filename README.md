@@ -14,11 +14,15 @@ the user to check if a specific IP is in the list.
   which should be configured in [the configuration file](/app/home/config.py)
 - Python 3.10.4, which can be installed by running `pyenv install 3.10.4`
 
-### Installing
+### Local installation
 
     make install
 
-## Deployment
+## Local deployment
+
+    pyenv exec poetry run gunicorn -b 0.0.0.0:8000 runner:app
+
+## Docker deployment
 
     make run
 
