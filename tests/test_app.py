@@ -48,7 +48,3 @@ def test_empty_ip(client):
 def test_wrong_method(client):
     response = client.post("/api/ips/0.0.0.0")
     assert response.status_code == 405
-
-# Tests:
-# mockear la api de git y hacer que rompe
-# testear errores en las funciones internas

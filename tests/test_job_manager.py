@@ -1,4 +1,4 @@
-from app.home.ip_blocklist_service import IpBlocklistService, s
+from app.home.ip_blocklist_service import s
 from app.home.constants import BLOCKLIST_NAME, LAST_COMMIT_SHA_KEY
 from app.home.config import URL
 from app.redis_service import redis_instance
