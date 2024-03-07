@@ -71,6 +71,7 @@ For more information on technical decisions taken, tradeoffs and functional and 
   - [Poetry](https://python-poetry.org/) - Dependency management
   - [Gunicorn](https://gunicorn.org/) - HTTP web server
   - [Flask](https://flask.palletsprojects.com/) - Web application framework
+  - [APScheduler](https://apscheduler.readthedocs.io/) - Library for scheduling python code
   - [Pytest](https://pytest.org/) - Testing framework
   - [Docker](https://www.docker.com/) - Container platform
   - [Swagger](https://swagger.io/) - Interactive documentation
