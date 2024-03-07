@@ -27,7 +27,7 @@ which should be configured in [the configuration file](/app/home/config.py)
 
     make run
 
-### Usage
+## Usage
 
     curl localhost:8000/api/ips/<ipv4>
 
