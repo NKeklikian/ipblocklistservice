@@ -92,10 +92,7 @@ A further improvement is to find the minimum time allowed by GitHub between chec
 #### GitHub Authentication token requirement
 
 Checking commit hashes requires a GitHub Authentication token.
-If the target user does not have a GitHub token the slower approach 
-which avoids checking commit hashes should be followed instead.
-
-### flask (vs FastAPI)
-FastAPI is asynchronous which makes it more complex to
-deploy and implement.
-Flask is the most widely used web service microframework
+If the target user does not have a GitHub token, the only way to check
+if there were updates in the data source is to download the entire list.
+This approach avoids checking commit hashes but is slower due to
+list files being heavier than commit hashes.
