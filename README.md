@@ -33,9 +33,15 @@ the user to check if a specific IP is in the list.
 
 ## Running the tests
 
+Tests can be run inside a docker container by running 
+
+    make test
+
+To test locally, run
+
     pyenv exec poetry run pytest tests/
 
-Reminder: An active Redis is needed for this to work
+Reminder: An active Redis service is needed for this to work
 
 ### Sample Test
 
